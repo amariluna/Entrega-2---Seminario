@@ -1,0 +1,48 @@
+CREATE TABLE Usuario (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  contraseña VARCHAR(255) NOT NULL,
+  tipo ENUM('paciente', 'medico', 'administrador') NOT NULL
+);
+
+CREATE TABLE Paciente (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT NOT NULL,
+  fecha_nacimiento DATE,
+  FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
+);
+
+CREATE TABLE Medico (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT NOT NULL,
+  especialidad VARCHAR(100),
+  FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
+);
+
+CREATE TABLE Turno (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  paciente_id INT NOT NULL,
+  medico_id INT NOT NULL,
+  fecha DATE,
+  hora TIME,
+  estado ENUM('pendiente', 'confirmado', 'cancelado') NOT NULL,
+  FOREIGN KEY (paciente_id) REFERENCES Paciente(id),
+  FOREIGN KEY (medico_id) REFERENCES Medico(id)
+);
+
+CREATE TABLE Notificacion (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  turno_id INT NOT NULL,
+  mensaje VARCHAR(255) NOT NULL,
+  fecha DATE,
+  FOREIGN KEY (turno_id) REFERENCES Turno(id)
+);
+
+CREATE TABLE HistorialMedico (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  paciente_id INT NOT NULL,
+  descripcion TEXT,
+  fecha DATE,
+  FOREIGN KEY (paciente_id) REFERENCES Paciente(id)
+);
