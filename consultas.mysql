@@ -1,0 +1,43 @@
+Inserción de Registros
+  
+-- Inserción de usuarios
+INSERT INTO Usuario (nombre, email, contraseña, tipo) VALUES ('Juan Pérez', 'juan@example.com', 'password123', 'paciente');
+INSERT INTO Usuario (nombre, email, contraseña, tipo) VALUES ('Dra. María López', 'maria@example.com', 'password123', 'medico');
+
+-- Inserción de pacientes
+INSERT INTO Paciente (usuario_id, fecha_nacimiento) VALUES (1, '1985-05-15');
+
+-- Inserción de médicos
+INSERT INTO Medico (usuario_id, especialidad) VALUES (2, 'Dermatología');
+
+-- Inserción de turnos
+INSERT INTO Turno (paciente_id, medico_id, fecha, hora, estado) VALUES (1, 1, '2024-10-10', '10:00:00', 'pendiente');
+
+-- Inserción de notificaciones
+INSERT INTO Notificacion (turno_id, mensaje, fecha) VALUES (1, 'El turno ha sido confirmado.', '2024-10-01');
+
+-- Inserción de historial médico
+INSERT INTO HistorialMedico (paciente_id, descripcion, fecha) VALUES (1, 'Consulta inicial.', '2024-09-15');
+
+Consulta de Registros
+  
+-- Consultar todos los turnos
+SELECT * FROM Turno;
+
+-- Consultar turnos de un paciente específico
+SELECT * FROM Turno WHERE paciente_id = 1;
+
+-- Consultar historial médico de un paciente
+SELECT * FROM HistorialMedico WHERE paciente_id = 1;
+
+
+Borrado de Registros
+
+-- Borrar un turno específico
+DELETE FROM Turno WHERE id = 1;
+
+-- Borrar un paciente
+DELETE FROM Paciente WHERE id = 1;
+
+-- Borrar un médico
+DELETE FROM Medico WHERE id = 1;
